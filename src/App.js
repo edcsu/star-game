@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import './App.css';
-import { colors, utils } from "./Helpers/helpers";
+import { utils } from "./Helpers/helpers";
+import GameNumber from "./Components/GameNumber";
+import StarDisplay from "./Components/StarDisplay";
 
 function App() {
   
@@ -16,13 +18,11 @@ function App() {
       </div>
       <div className="body">
         <div className="left">
-          {utils.range(1, stars).map(starId => 
-            <div key={starId} className="star" />          
-          )}
+          <StarDisplay count={stars} />
         </div>
         <div className="right">
           {utils.range(1, 9).map(number => 
-            <button key={number} className="number">{number}</button>
+            <GameNumber key={number} number={number} />
           )}
         </div>
       </div>
