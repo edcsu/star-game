@@ -22,6 +22,24 @@ function App() {
     return 'available'
   }
 
+  const onNumberClick = (number, currentStatus) => {
+    if (currentStatus === 'used') {
+      return
+    }
+    const newCandidateNums = currentStatus === 'available' ? 
+      candidateNums.concat(number) : candidateNums.filter(cn => cn !== number);
+    if (utils.sum(newCandidateNums) !== stars) {
+      setcandidateNums(newCandidateNums)
+    } else {
+      const newAvailableNums = availableNums.filter(
+        n => !newCandidateNums.includes(n)
+      )
+      setStars(utils.randomSumIn(newAvailableNums, 9))
+      setAvailableNums(newAvailableNums)
+      setcandidateNums([])
+    }
+  }
+
   return (
     <div className="App">
       <header className="App-header">
@@ -40,6 +58,7 @@ function App() {
              key={number}
              number={number} 
              status={numberStatus(number)}
+             onclick={onNumberClick}
             />
           )}
         </div>
