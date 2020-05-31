@@ -1,39 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { utils } from "../Helpers/helpers";
 import GameNumber from "./GameNumber";
 import StarDisplay from "./StarDisplay";
 import PlayAgain from "./PlayAgain";
-
-const useGameState = () =>{
-    const [stars, setStars] = useState(utils.random(1,9));
-    const [availableNums, setAvailableNums] = useState(utils.range(1, 9));
-    const [candidateNums, setcandidateNums] = useState([]);
-    const [secondsLeft, setSecondsLeft] = useState(10);
-
-    useEffect(() =>{
-        if (secondsLeft > 0 && availableNums.length > 0) {
-            const timerId = setTimeout(() => {
-            setSecondsLeft(secondsLeft - 1)
-            }, 1000);
-        return () => clearTimeout(timerId)
-        }
-    })
-
-    const setGameState = (newCandidateNums) =>{
-        if (utils.sum(newCandidateNums) !== stars) {
-            setcandidateNums(newCandidateNums)
-        } else {
-            const newAvailableNums = availableNums.filter(
-                n => !newCandidateNums.includes(n)
-            )
-            setStars(utils.randomSumIn(newAvailableNums, 9))
-            setAvailableNums(newAvailableNums)
-            setcandidateNums([])
-        }
-    }
-
-    return  {stars, availableNums, candidateNums, secondsLeft, setGameState} 
-}
+import useGameState from "../CustomHooks/useGameState";
 
 function Game({startNewGame}) {
 
@@ -50,8 +20,6 @@ function Game({startNewGame}) {
     const gamesStatus = availableNums.length === 0 
         ? 'won' 
         : secondsLeft === 0 ? 'lost' : 'active'
-
-    const timeout = 1000
 
     const numberStatus = (number) => {
     if (!availableNums.includes(number)) {
