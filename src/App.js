@@ -3,6 +3,7 @@ import './App.css';
 import { utils } from "./Helpers/helpers";
 import GameNumber from "./Components/GameNumber";
 import StarDisplay from "./Components/StarDisplay";
+import PlayAgain from "./Components/PlayAgain";
 
 function App() {
   
@@ -11,6 +12,8 @@ function App() {
   const [candidateNums, setcandidateNums] = useState([]);
 
   const candidatesAreWrong = utils.sum(candidateNums) > stars;
+
+  const gamesIsdone = availableNums.length === 0
 
   const numberStatus = (number) => {
     if (!availableNums.includes(number)) {
@@ -50,7 +53,11 @@ function App() {
       </div>
       <div className="body">
         <div className="left">
-          <StarDisplay count={stars} />
+          {gamesIsdone ? (
+            <PlayAgain />
+          ) : (
+            <StarDisplay count={stars} />
+          )}
         </div>
         <div className="right">
           {utils.range(1, 9).map(number => 
