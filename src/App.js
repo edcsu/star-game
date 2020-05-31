@@ -15,6 +15,12 @@ function App() {
 
   const gamesIsdone = availableNums.length === 0
 
+  const resetGame = () => {
+    setStars(utils.random(1,9))
+    setAvailableNums(utils.range(1,9))
+    setcandidateNums([])
+  }
+
   const numberStatus = (number) => {
     if (!availableNums.includes(number)) {
       return 'used'
@@ -54,7 +60,7 @@ function App() {
       <div className="body">
         <div className="left">
           {gamesIsdone ? (
-            <PlayAgain />
+            <PlayAgain onClick={resetGame} />
           ) : (
             <StarDisplay count={stars} />
           )}

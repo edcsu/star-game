@@ -1,9 +1,9 @@
 import React from 'react'
 
-function PlayAgain() {
+function PlayAgain({onClick}) {
     return (
         <div className="game-done">
-            <button>Play Again</button>
+            <button onClick={onClick}>Play Again</button>
         </div>
     )
 }
